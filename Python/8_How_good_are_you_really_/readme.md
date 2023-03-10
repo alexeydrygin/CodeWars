@@ -39,3 +39,26 @@ print(better_than_average(class_points, your_points))  # True
 ```
 
 Здесь средний балл класса равен (85 + 90 + 92 + 75 + 88 + 86) / 6 = 85.33. Таким образом, ваш балл 86 выше среднего балла класса, и функция возвращает True.
+
+---
+
+## Другие решения
+
+```python
+better_than_average = lambda a,b:(sum(a)/len(a))<b
+```
+
+```python
+def better_than_average(class_points, your_points):
+    return your_points > sum(class_points) / len(class_points)
+```
+
+```python
+def better_than_average(class_points, your_points):
+    mean = sum(class_points) / len(class_points)
+    print(mean)
+    if mean > your_points:
+        return False
+    else:
+        return True
+```
