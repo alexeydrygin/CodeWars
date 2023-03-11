@@ -5,7 +5,7 @@ import string
 difficulty = input("Введите Kyu: ")
 
 # Запрос названия папки у пользователя
-folder_name_input = input("Введите название папки: ")
+folder_name_input = input("Введите название: ")
 
 # Замена элементов пунктуации и пробелов на _
 folder_name = ''.join(
