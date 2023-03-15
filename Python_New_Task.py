@@ -4,6 +4,23 @@ import requests
 from googletrans import Translator
 from bs4 import BeautifulSoup
 import re
+import time
+import sys
+
+# Проверка соединения с интернетом
+try:
+    requests.get('https://www.codewars.com/')
+    text = "Подключение к CodeWars: "
+    animation = "|/-\\"
+    for i in range(5):
+        for char in animation:
+            sys.stdout.write('\r' + text + ' ' + char)
+            sys.stdout.flush()
+            time.sleep(0.1)
+    sys.stdout.write('\r' + text + ' ' + 'Готово!' + '\n')
+except requests.exceptions.RequestException as e:
+    print('Отсутствует подключение к интернету. Проверьте ваше подключение и повторите попытку.')
+    exit()
 
 # Введите URL-адрес страницы задачи CodeWars здесь
 url = input("\nВведите URL задачи: ")
@@ -19,9 +36,11 @@ html = response.content
 soup = BeautifulSoup(html, "html.parser")
 
 # ищем элементы, содержащие информацию о ранге и названии задачи
-rank_element = response.json()['rank']
+rank_element = response.json().get('rank')
 if rank_element:
-    rank_text = rank_element['name']
+    rank_text = rank_element.get('name')
+    if not rank_text:
+        rank_text = "0 kyu"
 else:
     rank_text = 'unknown rank'
 title_element = response.json()['name']
@@ -57,7 +76,7 @@ if '`` `' in kata_description_ru:
 kata_description_ru += '\n\n---\n\nВведите описание решения задачи здесь.'
 
 # номер сложности из ранга 
-difficulty  = int(re.findall('\d+', rank_text)[0])
+difficulty = int(re.findall('\d+', rank_text)[0])
 
 # Замена элементов пунктуации и пробелов на _
 folder_name = ''.join(
