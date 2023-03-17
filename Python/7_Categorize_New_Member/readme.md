@@ -58,3 +58,14 @@ print(output)
 ```python
 ["Open", "Open", "Senior", "Open", "Open", "Senior"]
 ```
+
+## Другие решения:
+
+```python
+def openOrSenior(data):
+  return ["Senior" if age >= 55 and handicap >= 8 else "Open" for (age, handicap) in data]
+```
+```python
+def open_or_senior(data):
+    return list(map(lambda x: "Senior" if x[0]>54 and x[1]>7 else "Open", data))
+```
