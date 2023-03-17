@@ -7,6 +7,9 @@ import re
 import time
 import sys
 
+# очистить содержимое окна консоли
+os.system('cls' if os.name == 'nt' else 'clear')
+
 # Проверка соединения с интернетом
 try:
     requests.get('https://www.codewars.com/')
