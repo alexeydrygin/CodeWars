@@ -39,18 +39,23 @@ html = response.content
 soup = BeautifulSoup(html, "html.parser")
 
 # ищем элементы, содержащие информацию о ранге и названии задачи
+# rank_element = response.json().get('rank')
+# if rank_element:
+#     rank_text = rank_element.get('name')
+#     if not rank_text:
+#         rank_text = "0 kyu"
+# else:
+#     rank_text = 'unknown rank'
+# title_element = response.json()['name']
+# if title_element:
+#     title_text = title_element
+# else:
+#     title_text = 'unknown title'
+
 rank_element = response.json().get('rank')
-if rank_element:
-    rank_text = rank_element.get('name')
-    if not rank_text:
-        rank_text = "0 kyu"
-else:
-    rank_text = 'unknown rank'
-title_element = response.json()['name']
-if title_element:
-    title_text = title_element
-else:
-    title_text = 'unknown title'
+rank_text = rank_element.get('name') if rank_element else "0 kyu"
+title_text = response.json()['name'] if response.json()['name'] else 'unknown title'
+
 
 # объединяем текст ранга и названия задачи с ссылкой на задачу
 prefix = "## " + f"{rank_text}" + " - " + f"{title_text}\n" + "[Ссылка на задачу](" + f"{url}" + ' "' + f"{title_text}" + '")\n\n'
